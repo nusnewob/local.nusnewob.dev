@@ -24,7 +24,7 @@ spec:
     namespace: {{ .namespace }}
     skipCRDs: {{ .skipCRDs | default false }}
     wait: {{ .wait | default false }}
-    waitTimeout: {{ .waitTimeout | default 300 }}
+    waitTimeout: {{ .waitTimeout | default "5m" }}
     values:
 {{ toYaml .values | indent 6 }}
     {{- if .patchesFrom }}
