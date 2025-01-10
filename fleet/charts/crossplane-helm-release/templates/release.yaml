@@ -57,8 +57,10 @@ spec:
   writeConnectionSecretToRef:
 {{ toYaml .writeConnectionSecretToRef | indent 4 }}
   {{- end }}
+  {{- if .providerConfigRef }}
   providerConfigRef:
-    name: {{ $.Values.providerConfigRef.name }}
+    name: {{ .providerConfigRef }}
+  {{- end }}
 
 ---
 {{- end }}

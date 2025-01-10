@@ -1,5 +1,8 @@
-providerConfigRef:
-  name: provider-helm
+providerConfig:
+  - name: default
+    credentials:
+      source: InjectedIdentity
+
 helmReleases:
   - name: ingress-nginx
     namespace: ingress-nginx
