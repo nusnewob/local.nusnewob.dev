@@ -1,8 +1,14 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: fleet-downstream
+
+---
 apiVersion: fleet.cattle.io/v1alpha1
 kind: GitRepo
 metadata:
   name: fleet-downstream
-  namespace: fleet-downstream
+  namespace: fleet-local
 spec:
   repo: https://github.com/nusnewob/local.nusnewob.dev.git
   branch: main
