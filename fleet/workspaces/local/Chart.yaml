@@ -1,0 +1,6 @@
+apiVersion: v2
+type: application
+name: fleet-local
+description: Fleet Workspace
+version: 0.0.1
+appVersion: 0.0.1

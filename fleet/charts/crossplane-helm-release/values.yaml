@@ -1,0 +1,68 @@
+providerConfigRef:
+  name: helm-provider
+helmReleases:
+  - name: ingress-nginx
+    namespace: ingress-nginx
+    chart:
+      name: ingress-nginx
+      repository: https://kubernetes.github.io/ingress-nginx
+    values:
+      controller:
+        kind: DaemonSet
+        extraArgs:
+          report-node-internal-ip-address: true
+        ingressClassResource:
+          default: true
+        watchIngressWithoutClass: true
+        service:
+          type: ClusterIP
+        hostPort:
+          enabled: true
+          ports:
+            http: 80
+            https: 443
+        metrics:
+          enabled: true
+  - name: cert-manager
+    namespace: cert-manager
+    chart:
+      name: cert-manager
+      repository: https://charts.jetstack.io
+    values:
+      crds:
+        enabled: true
+  - name: metrics-server
+    namespace: metrics-server
+    chart:
+      name: metrics-server
+      repository: https://kubernetes-sigs.github.io/metrics-server/
+    values:
+      args:
+        - --kubelet-preferred-address-types=InternalIP
+        - --kubelet-insecure-tls
+  - name: k8s-dashboard
+    namespace: k8s-dashboard
+    chart:
+      name: kubernetes-dashboard
+      repository: https://kubernetes.github.io/dashboard/
+    values:
+      app:
+        ingress:
+          enabled: true
+          hosts:
+            - dashboard.k8s.local.nusnewob.dev
+          useDefaultIngressClass: true
+  # - name: fleet-crd
+  #   namespace: fleet-system
+  #   chart:
+  #     name: fleet-crd
+  #     repository: https://rancher.github.io/fleet-helm-charts
+  # - name: fleet-agent
+  #   namespace: fleet-agent
+  #   chart:
+  #     name: fleet-system
+  #     repository: https://rancher.github.io/fleet-helm-charts
+  #   values:
+  #     systemRegistrationNamespace: fleet-system
+  #     internal:
+  #       systemNamespace: fleet-system

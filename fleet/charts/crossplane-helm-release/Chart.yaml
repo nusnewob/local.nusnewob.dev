@@ -1,0 +1,6 @@
+apiVersion: v2
+type: application
+name: crossplane-helm-release
+description: Templated Helm deployment using Crossplane Helm provider
+version: 0.0.1
+appVersion: 0.0.1

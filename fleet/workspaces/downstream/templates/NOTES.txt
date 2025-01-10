@@ -1,0 +1,7 @@
+### Please be patient while the chart is being deployed ###
+
+# Get ClusterGroup(s)
+kubectl get --namespace {{ .Release.Namespace }} ClusterGroup -l helm.sh/chart={{ include "helper.chart" . }}
+
+# Get GitRepo(s)
+kubectl get --namespace {{ .Release.Namespace }} GitRepo -l helm.sh/chart={{ include "helper.chart" . }}

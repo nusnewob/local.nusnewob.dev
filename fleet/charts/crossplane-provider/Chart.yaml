@@ -1,0 +1,6 @@
+apiVersion: v2
+type: application
+name: crossplane-provider
+description: Templated Crossplane provider config
+version: 0.0.1
+appVersion: 0.0.1

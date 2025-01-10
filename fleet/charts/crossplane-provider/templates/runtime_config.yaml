@@ -1,0 +1,16 @@
+{{- range .Values.providers }}
+{{- if .runtimeConfig }}
+{{- if .runtimeConfig.enabled }}
+apiVersion: pkg.crossplane.io/v1beta1
+kind: DeploymentRuntimeConfig
+metadata:
+  name: {{ .name }}
+spec:
+  serviceAccountTemplate:
+    metadata:
+      name: {{ .name }}
+
+---
+{{- end }}
+{{- end }}
+{{- end }}

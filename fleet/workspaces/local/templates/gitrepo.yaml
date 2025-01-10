@@ -1,0 +1,25 @@
+{{- range .Values.gitrepos }}
+{{- if .create }}
+apiVersion: fleet.cattle.io/v1alpha1
+kind: GitRepo
+metadata:
+  name: {{ .name }}
+  annotations:
+    field.cattle.io/description: {{ .description | default .name | quote }}
+    {{- if $.Values.commonAnnotations }}
+    {{- include "helper.annotations" (dict "annotations" $.Values.commonAnnotations "context" $) | trim | nindent 4 }}
+    {{- end }}
+    {{- if .annotations }}
+    {{- include "helper.annotations" (dict "annotations" .annotations "context" $) | trim | nindent 4 }}
+    {{- end }}
+  labels: {{- include "helper.labels" $ | nindent 4 }}
+    {{- if $.Values.commonLabels }}
+    {{- include "helper.tplValue" (dict "value" $.Values.commonLabels "context" $) | nindent 4 }}
+    {{- end }}
+    {{- if .labels }}
+    {{- include "helper.tplValue" (dict "value" .labels "context" $) | nindent 4 }}
+    {{- end }}
+spec: {{- toYaml .spec | nindent 2 }}
+---
+{{- end }}
+{{- end }}

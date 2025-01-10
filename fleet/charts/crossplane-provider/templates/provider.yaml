@@ -1,0 +1,17 @@
+{{- range .Values.providers }}
+apiVersion: pkg.crossplane.io/v1
+kind: Provider
+metadata:
+  name: {{ .name }}
+spec:
+  package: {{ .package }}
+  {{- if .runtimeConfig }}
+  {{- if .runtimeConfig.enabled }}
+  runtimeConfigRef:
+    apiVersion: pkg.crossplane.io/v1beta1
+    kind: DeploymentRuntimeConfig
+    name: {{ .name }}
+  {{- end }}
+  {{- end }}
+---
+{{- end }}

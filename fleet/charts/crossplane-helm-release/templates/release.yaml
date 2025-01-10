@@ -1,0 +1,60 @@
+{{- range .Values.helmReleases }}
+apiVersion: helm.crossplane.io/v1beta1
+kind: Release
+metadata:
+  name: {{ .name }}
+spec:
+  forProvider:
+    chart:
+      name: {{ .chart.name }}
+      {{- if .chart.repository }}
+      repository: {{ .chart.repository }}
+      {{- end }}
+      {{- if .chart.url }}
+      url: {{ .chart.url }}
+      {{- end }}
+      {{- if .chart.version }}
+      version: {{ .chart.version }}
+      {{- end }}
+      {{- if .chart.pullSecretRef }}
+      pullSecretRef:
+        name: {{ .chart.pullSecretRef.name }}
+        namespace: {{ .chart.pullSecretRef.namespace }}
+      {{- end }}
+    namespace: {{ .namespace }}
+    skipCRDs: {{ .skipCRDs | default false }}
+    wait: {{ .wait | default false }}
+    waitTimeout: {{ .waitTimeout | default 300 }}
+    values:
+{{ toYaml .values | indent 6 }}
+    {{- if .patchesFrom }}
+    patchesFrom:
+{{ toYaml .patchesFrom | indent 6 }}
+    {{- end }}
+    {{- if .set }}
+    set:
+{{ toYaml .set | indent 6 }}
+    {{- end }}
+  {{- if .managementPolicies }}
+  managementPolicies:
+  {{- range .managementPolicies }}
+    - {{ . }}
+  {{- end }}
+  {{- end }}
+  {{- if .publishConnectionDetailsTo }}
+  publishConnectionDetailsTo:
+{{ toYaml .publishConnectionDetailsTo | indent 4 }}
+  {{- end }}
+  {{- if .rollbackLimit }}
+  rollbackLimit:
+{{ toYaml .rollbackLimit | indent 4 }}
+  {{- end }}
+  {{- if .writeConnectionSecretToRef }}
+  writeConnectionSecretToRef:
+{{ toYaml .writeConnectionSecretToRef | indent 4 }}
+  {{- end }}
+  providerConfigRef:
+    name: {{ $.Values.providerConfigRef.name }}
+
+---
+{{- end }}

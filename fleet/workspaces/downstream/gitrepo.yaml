@@ -1,0 +1,13 @@
+apiVersion: fleet.cattle.io/v1alpha1
+kind: GitRepo
+metadata:
+  name: fleet-downstream
+  namespace: fleet-downstream
+spec:
+  repo: https://github.com/nusnewob/local.nusnewob.dev.git
+  branch: main
+  paths:
+    - fleet/workspaces/downstream
+  targets:
+    - name: all
+      clusterSelector: {}
