@@ -22,9 +22,13 @@ spec:
         namespace: {{ .chart.pullSecretRef.namespace }}
       {{- end }}
     namespace: {{ .namespace }}
+    {{- if .skipCRDs }}
     skipCRDs: {{ .skipCRDs | default false }}
+    {{- end }}
+    {{- if .wait }}
     wait: {{ .wait | default false }}
     waitTimeout: {{ .waitTimeout | default "5m" }}
+    {{- end }}
     values:
 {{ toYaml .values | indent 6 }}
     {{- if .patchesFrom }}

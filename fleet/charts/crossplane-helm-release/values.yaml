@@ -1,5 +1,5 @@
 providerConfigRef:
-  name: helm-provider
+  name: provider-helm
 helmReleases:
   - name: ingress-nginx
     namespace: ingress-nginx
