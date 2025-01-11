@@ -17,6 +17,17 @@ clustergroups: []
 # -- Fleet [GitRepos](https://fleet.rancher.io/gitrepo-add)
 # @default -- see [values](values.yaml)
 gitrepos:
+  - name: crossplane
+    create: true
+    spec:
+      repo: https://github.com/nusnewob/local.nusnewob.dev.git
+      branch: main
+      paths:
+        - fleet/charts/crossplane
+      targets:
+        - name: all
+          clusterSelector: {}
+
   - name: crossplane-provider
     create: true
     spec:

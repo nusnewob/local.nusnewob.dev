@@ -17,3 +17,12 @@ spec:
   targets:
     - name: all
       clusterSelector: {}
+
+---
+apiVersion: fleet.cattle.io/v1alpha1
+kind: ClusterRegistrationToken
+metadata:
+  name: fleet-downstream
+  namespace: fleet-downstream
+spec:
+  ttl: 0h

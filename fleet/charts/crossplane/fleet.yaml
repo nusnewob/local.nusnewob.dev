@@ -1,0 +1,5 @@
+defaultNamespace: crossplane-system
+
+helm:
+  repo: https://charts.crossplane.io/stable
+  chart: crossplane
