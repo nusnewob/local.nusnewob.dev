@@ -13,16 +13,5 @@ spec:
   repo: https://github.com/nusnewob/local.nusnewob.dev.git
   branch: main
   paths:
-    - fleet/workspaces/local
-  targets:
-    - name: all
-      clusterSelector: {}
-
----
-apiVersion: fleet.cattle.io/v1alpha1
-kind: ClusterRegistrationToken
-metadata:
-  name: fleet-local
-  namespace: fleet-local
-spec:
-  ttl: 0h
+    - fleet/charts/fleet-workspace
+  targetNamespace: fleet-local

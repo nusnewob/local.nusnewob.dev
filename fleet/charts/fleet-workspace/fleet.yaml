@@ -1,0 +1,16 @@
+targetCustomizations:
+  - name: local
+    clusterSelector:
+      matchLabels:
+        name: "local"
+    helm:
+      valuesFiles:
+        - values-local.yaml
+
+  - name: downstream
+    clusterSelector:
+      matchLabels:
+        downstream: "true"
+    helm:
+      valuesFiles:
+        - values-downstream.yaml

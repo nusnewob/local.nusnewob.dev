@@ -1,0 +1,19 @@
+# -- String to partially override helper.fullname template (will maintain the release name)
+nameOverride:
+
+# -- String to fully override helper.fullname template
+fullnameOverride:
+
+# -- Add annotations to all the deployed resources
+commonAnnotations: {}
+
+# -- Add labels to all the deployed resources
+commonLabels: {}
+
+# -- Fleet [ClusterGroups](https://fleet.rancher.io/cluster-group)
+# @default -- see [values](values.yaml)
+clustergroups: []
+
+# -- Fleet [GitRepos](https://fleet.rancher.io/gitrepo-add)
+# @default -- see [values](values.yaml)
+gitrepos: []
