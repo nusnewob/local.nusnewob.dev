@@ -1,13 +1,27 @@
 providers:
   - name: provider-aws
-    package: xpkg.upbound.io/crossplane-contrib/provider-aws:v0.51.0
+    package: xpkg.upbound.io/upbound/provider-family-aws:v1
+  - name: provider-gcp
+    package: xpkg.upbound.io/upbound/provider-family-gcp:v1
+  - name: provider-gcp-storage
+    package: xpkg.upbound.io/upbound/provider-gcp-storage:v1
+  - name: provider-azure
+    package: xpkg.upbound.io/upbound/provider-family-azure:v1
   - name: provider-kubernetes
-    package: xpkg.upbound.io/crossplane-contrib/provider-kubernetes:v0.15.1
+    package: xpkg.upbound.io/upbound/provider-kubernetes:v0
   - name: provider-terraform
-    package: xpkg.upbound.io/upbound/provider-terraform:v0.19.2
+    package: xpkg.upbound.io/upbound/provider-terraform:v0
   - name: provider-helm
-    package: xpkg.upbound.io/crossplane-contrib/provider-helm:v0.19.0
+    package: xpkg.upbound.io/upbound/provider-helm:v0
     runtimeConfig:
       enabled: true
     rbac:
       enabled: true
+
+functions:
+  - name: function-patch-and-transform
+    package: xpkg.upbound.io/upbound/function-patch-and-transform:v0.8.1
+  - name: function-auto-ready
+    package: xpkg.upbound.io/upbound/function-auto-ready:v0.4.1
+  - name: function-go-templating
+    package: xpkg.upbound.io/upbound/function-go-templating:v0.9.1
