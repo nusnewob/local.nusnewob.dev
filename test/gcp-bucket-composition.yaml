@@ -1,0 +1,64 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: CompositeResourceDefinition
+metadata:
+  name: xbuckets.xtest.nusnewob.dev
+spec:
+  group: xtest.nusnewob.dev
+  names:
+    kind: XBucket
+    plural: xbuckets
+  versions:
+    - name: v1alpha1
+      served: true
+      referenceable: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              properties:
+                location:
+                  type: string
+
+---
+apiVersion: apiextensions.crossplane.io/v1
+kind: Composition
+metadata:
+  name: bsun-crossplane-composition-test
+spec:
+  compositeTypeRef:
+    apiVersion: xtest.nusnewob.dev/v1alpha1
+    kind: XBucket
+  mode: Pipeline
+  pipeline:
+    - step: patch-and-transform
+      functionRef:
+        name: function-patch-and-transform
+      input:
+        apiVersion: pt.fn.crossplane.io/v1beta1
+        kind: Resources
+        resources:
+          - name: bsun-crossplane-composition-test
+            base:
+              apiVersion: storage.gcp.upbound.io/v1beta1
+              kind: Bucket
+              spec:
+                deletionPolicy: Orphan
+                managementPolicies: ["Create", "Update", "Observe"]
+                forProvider:
+                  location: US
+                  storageClass: STANDARD
+                providerConfigRef:
+                  name: gcp
+            patches:
+              - fromFieldPath: spec.location
+                toFieldPath: spec.forProvider.location
+
+---
+apiVersion: xtest.nusnewob.dev/v1alpha1
+kind: XBucket
+metadata:
+  name: bsun-composite-resource-test
+spec:
+  location: EU

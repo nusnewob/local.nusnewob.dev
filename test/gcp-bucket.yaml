@@ -1,0 +1,12 @@
+apiVersion: storage.gcp.upbound.io/v1beta1
+kind: Bucket
+metadata:
+  name: bsun-crossplane-test
+spec:
+  deletionPolicy: Orphan
+  managementPolicies: ["Create", "Update", "Observe"]
+  forProvider:
+    location: US
+    storageClass: STANDARD
+  providerConfigRef:
+    name: gcp
