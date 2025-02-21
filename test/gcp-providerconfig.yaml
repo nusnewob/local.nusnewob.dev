@@ -1,0 +1,15 @@
+#
+# kubectl -n crossplane-system create secret generic provider-gcp --from-file=credentials.json=credentials.json
+#
+apiVersion: gcp.upbound.io/v1beta1
+kind: ProviderConfig
+metadata:
+  name: gcp
+spec:
+  projectID: cnoe-gcp
+  credentials:
+    source: Secret
+    secretRef:
+      key: credentials.json
+      name: provider-gcp
+      namespace: crossplane-system
