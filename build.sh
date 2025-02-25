@@ -57,10 +57,10 @@ if [ $(helm list -Aa -o yaml | yq '.[] | select(.name==("fleet-agent")).status')
 fi
 
 while [ helm list -Aa -o yaml | yq '.[] | select(.chart=="crossplane-provider-*").status' != "deployed" && ! kubectl get providers.pkg.crossplane.io -o yaml | yq '[.items[].status.conditions[].status] | all' ]; do sleep 3; done
-for CREDENTIAL in ${INSTALL_DIR}/private/*.json; do
+for CREDENTIAL in ${INSTALL_DIR}/private/*; do
   PROVIDER_NAME=$(basename ${CREDENTIAL%.*})
   if [ ! kubectl -n crossplane-system get secret provider-${PROVIDER_NAME} ]; then
-    kubectl -n crossplane-system create secret generic provider-${PROVIDER_NAME} --from-file=credentials.json=${CREDENTIAL}
+    kubectl -n crossplane-system create secret generic provider-${PROVIDER_NAME} --from-file=credentials=${CREDENTIAL}
   fi
 done
 kubectl apply -f ${INSTALL_DIR}/test
